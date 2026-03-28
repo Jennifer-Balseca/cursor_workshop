@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { Outfit, Syne } from "next/font/google";
+import { Inter } from "next/font/google";
+import { seo } from "../constants/content";
 import "./globals.css";
 
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-});
-
-const syne = Syne({
-  variable: "--font-syne",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -18,9 +14,8 @@ const siteUrl =
 
 export const metadata: Metadata = {
   ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
-  title: "Cursor Workshop Quito",
-  description:
-    "Taller práctico en Quito: aprende Cursor, crea y publica tu landing page. Presentado por Cursor Community.",
+  title: seo.title,
+  description: seo.description,
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -38,7 +33,8 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${outfit.variable} ${syne.variable} h-full antialiased`}
+      className={`${inter.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -50,7 +46,12 @@ export default function RootLayout({
         />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
-      <body className="flex min-h-full flex-col font-sans">{children}</body>
+      <body
+        className="flex min-h-full flex-col font-sans"
+        suppressHydrationWarning
+      >
+        {children}
+      </body>
     </html>
   );
 }

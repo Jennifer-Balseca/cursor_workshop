@@ -3,17 +3,21 @@
 :root {
   --background: #09090b;
   --foreground: #fafafa;
+  --accent-from: #a855f7;
+  --accent-to: #f472b6;
+  --accent-muted: color-mix(in oklab, var(--accent-from) 35%, transparent);
+  --surface-elevated: color-mix(in oklab, #fafafa 4%, var(--background));
+  --border-subtle: color-mix(in oklab, #fafafa 12%, transparent);
+  --section-y: 5rem;
+  --section-y-md: 7rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-outfit);
-  --font-display: var(--font-syne);
-}
-
-.font-syne {
-  font-family: var(--font-syne), var(--font-outfit), sans-serif;
+  --font-sans: var(--font-inter);
+  --color-accent-from: var(--accent-from);
+  --color-accent-to: var(--accent-to);
 }
 
 body {
@@ -22,55 +26,36 @@ body {
   font-family: var(--font-sans), ui-sans-serif, sans-serif;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .motion-hero-media,
-  .motion-hero-content,
-  .motion-hero-cta {
-    animation: none !important;
+.text-gradient-accent {
+  background-image: linear-gradient(
+    90deg,
+    var(--accent-from),
+    var(--accent-to)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-y {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+}
+
+@media (min-width: 768px) {
+  .section-y {
+    padding-top: var(--section-y-md);
+    padding-bottom: var(--section-y-md);
   }
 }
 
-@keyframes hero-card-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+/* FAQ: details nativos, sin JS */
+.faq-details summary {
+  list-style: none;
 }
-
-@keyframes hero-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.faq-details summary::-webkit-details-marker {
+  display: none;
 }
-
-@keyframes hero-line-in {
-  from {
-    opacity: 0;
-    transform: translateY(0.5rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.motion-hero-media {
-  animation: hero-card-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.motion-hero-content {
-  animation: hero-fade-up 0.75s ease-out 0.12s both;
-}
-
-.motion-hero-cta {
-  animation: hero-line-in 0.7s ease-out 0.35s both;
+.faq-details[open] .faq-chevron {
+  transform: rotate(180deg);
 }
